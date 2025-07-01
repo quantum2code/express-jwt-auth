@@ -1,3 +1,4 @@
+import { setAuthCookies } from "./../utils/cookies";
 import { z } from "zod";
 import { catchErrors } from "../utils/catchErrors";
 import { createUser } from "../services/auth.services";
@@ -16,13 +17,15 @@ export const signUpSchema = z
 
 export const signUpHandler = catchErrors(async (req, res) => {
   //validate the signUpSchema
-  const signUpRes = signUpSchema.parse({
+  const request = signUpSchema.parse({
     ...req.body,
   });
 
   //call services
-  const createdUser = await createUser(signUpRes);
+  const { user, refreshToken, accessToken } = await createUser(request);
 
   //return response
-  res.status(200).json(createdUser);
+  return setAuthCookies(res, accessToken, refreshToken)
+    .status(200)
+    .json({ name: user[0].name, email: user[0].email });
 });

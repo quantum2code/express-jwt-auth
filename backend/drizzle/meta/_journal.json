@@ -15,6 +15,13 @@
       "when": 1751396123347,
       "tag": "0001_fat_mandrill",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1751402451226,
+      "tag": "0002_noisy_centennial",
+      "breakpoints": true
     }
   ]
 }
