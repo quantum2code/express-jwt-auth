@@ -1,6 +1,6 @@
 import { CookieOptions, Response } from "express";
 import { fifteenMinutesFromNow, thrityDaysFromNow } from "./time";
-const defaults: CookieOptions = {
+export const defaults: CookieOptions = {
   sameSite: "strict",
   httpOnly: true,
   secure: false,
@@ -21,3 +21,8 @@ export const setAuthCookies = (
       expires: thrityDaysFromNow(),
       path: "/api/v1/auth/refresh",
     });
+
+export const clearAuthCookies = (res: Response) =>
+  res.clearCookie("accessToken").clearCookie("refreshToken", {
+    path: "/api/v1/auth/refresh",
+  });
