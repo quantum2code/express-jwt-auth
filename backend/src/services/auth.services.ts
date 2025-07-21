@@ -82,8 +82,8 @@ export const logInUser = async (loginData: z.infer<typeof logInSchema>) => {
     throw new AppError(400, "Invalid email or password");
   }
 
-  const password = await compare(loginData.password, user.password);
-  if (!password) {
+  const isPassword = await compare(loginData.password, user.password);
+  if (!isPassword) {
     throw new AppError(400, "Invalid email or password");
   }
   const createdSession = await db
@@ -111,11 +111,9 @@ export const logInUser = async (loginData: z.infer<typeof logInSchema>) => {
     JWT_REFRESH_SECRET,
     { audience: ["user"], expiresIn: "15min" }
   );
+  const { password, createdAt, updatedAt, id, ...safeUser } = user;
   return {
-    user: {
-      name: user.name,
-      email: user.email,
-    },
+    user: safeUser,
     refreshToken,
     accessToken,
   };

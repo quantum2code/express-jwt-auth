@@ -9,7 +9,12 @@ const app = e();
 
 app.use(e.json());
 app.use(e.urlencoded());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(cookieParser());
 
 //default / endpoint

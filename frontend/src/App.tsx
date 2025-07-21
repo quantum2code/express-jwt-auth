@@ -1,24 +1,19 @@
-import { Link } from "react-router";
-import { Button } from "./components/ui/button";
+import { Route, Routes } from "react-router-dom";
+import Landing from "./pages/Landing";
+import SignUp from "./pages/SignUp";
+import LogIn from "./pages/LogIn";
+import Home from "./pages/Home";
 
-function App() {
+const App = () => {
   return (
-    <div className=" font-geist flex justify-center w-screen">
-      <div className="flex flex-col items-center gap-6">
-        <h1 className="font-bold text-4xl tracking-tight">Simple. Secure</h1>
-        <div className="flex gap-2">
-          <Link to={"/signup"}>
-            <Button variant={"default"}>Get started</Button>
-          </Link>
-          <Link to={"/about"}>
-            <Button className="bg-background text-foreground border-foreground border-2 hover:bg-background ">
-              Learn more
-            </Button>
-          </Link>
-        </div>
-      </div>
-    </div>
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/login" element={<LogIn />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="*" element={<h1>404 Not Found</h1>} />
+    </Routes>
   );
-}
+};
 
 export default App;
